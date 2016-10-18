@@ -1,0 +1,32 @@
+body {
+  background-color: lavender;
+}
+
+#login {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+a {
+  text-decoration: none;
+}
+
+.entry_links {
+  margin-top: 50%;
+  text-align: center;
+}
+
+.entry_links a {
+  background-color: red;
+  padding: 25px 25px;
+  border-radius: 5px;
+}
+
+.entry_links a:first-child {
+    margin-right: 5%;
+}
+
+.entry_links a:last-child {
+    margin-left: 5%;
+}

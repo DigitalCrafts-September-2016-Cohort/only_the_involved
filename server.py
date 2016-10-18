@@ -17,6 +17,18 @@ def home_page():
         title='If You Care'
     )
 
+@app.route('/registration')
+def register_user():
+    return render_template(
+        'register_user.html'
+    )
+
+@app.route('/login')
+def login_user():
+    return render_template(
+        'login.html'
+    )
+
 @app.route('/login_handler')
 def login():
     email = request.form.get('email')

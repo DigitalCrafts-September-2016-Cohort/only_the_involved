@@ -1,10 +1,19 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<form id="login" action="/login_page" method="post">
-  <input type="text" name="email" placeholder="email">
-  <input type="password" name="password" placeholder="password">
-  <button type="submit" name="button">Login</button>
+<div class="row">
+  <div class="col-xs-12 text-center">
+    <h1>Login</h1>
+  </div>
+</div>
+<form id="login_form" action="/login_page" method="post">
+  <div class="form-group">
+    <input class="form-control" type="text" name="email" placeholder="email">
+  </div>
+  <div class="form-group">
+    <input class="form-control" type="password" name="password" placeholder="password">
+  </div>
+  <button class="btn btn-primary form-control" type="submit" name="login">Login</button>
 </form>
 
 {% endblock %}

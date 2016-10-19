@@ -1,17 +1,22 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<form class="" action="/submit_new_org" method="post">
-  <div class="">
+<div class="row">
+  <div class="col-xs-12 text-center">
+    <h1>Register</h1>
+  </div>
+</div>
+<form id="signup_form" action="/submit_new_org" method="post">
+  <div class="form-group">
     <label for="name">Organization Name:</label>
-    <input type="text" name="name" value="">
+    <input class="form-control" type="text" name="name" value="">
   </div>
-  <div class="">
+  <div class="form-group">
     <label for="description">Description:</label>
-    <input type="text" name="description" value="">
+    <input class="form-control" type="text" name="description" value="">
   </div>
-  <div class="">
-    <button type="submit" name="submit">Submit</button>
+  <div class="form-group">
+    <button class="btn btn-primary form-control" type="submit" name="submit">Submit</button>
   </div>
 </form>
 {% endblock %}

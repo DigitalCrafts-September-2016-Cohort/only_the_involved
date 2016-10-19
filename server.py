@@ -59,10 +59,14 @@ def render_vol_signup():
 @app.route('/submit_new_vol', methods=['POST'])
 def submit_new_user():
     name = request.form.get('name')
+    email = request.form.get('email')
+    password = request.form.get('password')
 
     db.insert(
         'volunteer', {
-            'name': name
+            'name': name,
+            'password': password,
+            'email': email
         }
     )
     return redirect('/')

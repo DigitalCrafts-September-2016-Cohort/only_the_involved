@@ -61,12 +61,20 @@ body {
 /************************
         REGISTRATION
 ************************/
+.register_user {
+  margin-top: 2em;
+}
 .register_user a {
   margin: .5em;
+  padding: 1em 1.25em;
+  font-size: 1.25em;
 }
 /************************************
         ORG_SIGNUP / VOL_SIGNUP
 ************************************/
+.create_user_heading {
+  margin-bottom: 2em;
+}
 #signup_form {
   max-width: 350px;
   margin: auto;
@@ -86,5 +94,8 @@ footer {
   position: absolute;
   bottom: 0;
   width: 100%;
-  padding: 1em;
+  padding: 1em 0;
+}
+footer, footer a {
+  color: #fff;
 }

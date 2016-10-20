@@ -1,24 +1,26 @@
 {% extends "layout.html" %}
 
-{% block head %}
-<style media="screen">
-  #login {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-  }
-</style>
-{% endblock %}
 
 {% block body %}
 <h1>Get Involved</h1>
-<form id="login" action="/login_page" method="post">
-  <input type="text" name="email" placeholder="email">
-  <input type="password" name="password" placeholder="password">
-  <button type="submit" name="button">Login</button>
-</form>
-<hr>
-<a href="/org_signup">I am an Organization</a>
-<a href="/vol_signup">I am a Volunteer</a>
-<a href="/projects">View all Projects</a>
+<hr class="involve-hr">
+<div class="row quote">
+  <div class="col-xs-12 text-center">
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+    </p>
+  </div>
+</div>
+<hr class="involve-hr">
+
+<div class="row entry_links">
+  <div class="col-xs-12 text-center">
+    <a class="btn btn-primary" href="/login">Login</a>
+    <a class="btn btn-primary" href="/registration">Register</a>
+  </div>
+</div>
+
 {% endblock %}
+
+
+<!-- <a href="/projects">View all Projects</a> -->

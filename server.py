@@ -7,6 +7,7 @@ app = Flask('if_you_care')
 db = pg.DB(dbname='volunteer_db')
 app.secret_key = 'give_a_little'
 
+
 @app.route('/')
 def home_page():
     count = session.get('count', 0)
@@ -16,6 +17,7 @@ def home_page():
         'homepage.html',
         title='If You Care'
     )
+
 
 @app.route('/registration')
 def register_user():
@@ -31,6 +33,10 @@ def login_user():
 
 @app.route('/vol_login_handler', methods=['POST'])
 def vol_login():
+
+
+@app.route('/login_handler', methods=['POST'])
+def login():
     email = request.form.get('email')
     password = request.form.get('password')
     query = db.query('select * from volunteer where email = $1', email)
@@ -38,6 +44,7 @@ def vol_login():
     if len(results_list[0]) > 0:
         if results_list[0].password == password:
             session['email'] = email
+
     else:
         pass
     return redirect('/')
@@ -57,9 +64,11 @@ def org_login_handler():
     if len(results_list[0]) > 0:
         if results_list[0].password == password:
             session['email'] = email
+
     else:
         pass
     return redirect('/')
+
 
 @app.route('/org_signup')
 def render_org_signup():
@@ -68,6 +77,7 @@ def render_org_signup():
         title='If You Care'
     )
 
+
 @app.route('/vol_signup')
 def render_vol_signup():
     return render_template(
@@ -75,11 +85,13 @@ def render_vol_signup():
         title='If You Care'
     )
 
+
 @app.route('/logout')
 def logout_handler():
     if session['email']:
         del session['email']
     return redirect('/')
+
 
 @app.route('/submit_new_vol', methods=['POST'])
 def submit_new_user():
@@ -95,6 +107,7 @@ def submit_new_user():
         }
     )
     return redirect('/')
+
 
 @app.route('/submit_new_org', methods=['POST'])
 def submit_new_org():
@@ -114,15 +127,28 @@ def submit_new_org():
     session['email'] = email
     return redirect('/')
 
+
 @app.route('/org_profile')
 def view_org_profile():
     query = db.query('select * from organization where email = $1', session['email'])
+
+
+@app.route('/org_profile')
+def view_org_profile():
+    query = db.query(
+        'select * from organization where email = $1', session['email'])
+
     org_info = query.namedresult()[0]
 
     return render_template(
         'org_profile.html',
+
         org_info = org_info
     )
+        org_info=org_info
+    )
+
+
 
 @app.route('/create_new_event')
 def create_new_event():
@@ -131,9 +157,17 @@ def create_new_event():
         'create_new_event.html'
     )
 
+
 @app.route('/submit_new_event', methods=['POST'])
 def submit_new_event():
     query = db.query('select * from organization where email = $1', session['email']).namedresult()[0]
+
+
+@app.route('/submit_new_event', methods=['POST'])
+def submit_new_event():
+    query = db.query('select * from organization where email = $1',
+                     session['email']).namedresult()[0]
+
     org_id = query.id
     org_name = query.name
 
@@ -151,6 +185,7 @@ def submit_new_event():
     )
     return redirect('/projects')
 
+
 @app.route('/projects')
 def view_projects():
     query = db.query('select organization.name as Organization, project.name as Project, project.project_description as Description, project.start_date as Time from project, organization where project.organization_id = organization.id')
@@ -159,8 +194,9 @@ def view_projects():
     return render_template(
         'projects.html',
         title='If You Care',
-        entry_list= results_list
+        entry_list=results_list
     )
+
 
 @app.route('/search', methods=['POST'])
 def search_bar():
@@ -171,7 +207,7 @@ def search_bar():
     print "DATE: %r" % date
     return render_template(
         'projects.html',
-        entry_list = results_list
+        entry_list=results_list
     )
 
 

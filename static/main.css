@@ -89,13 +89,13 @@ table, th, tr, td {
 /************************
           FOOTER
 ************************/
+
 footer {
-  background-color: #222;
-  color: ivory;
-  position: absolute;
-  width: 100%;
-  padding: 1em 0;
+   padding: 15px;
+   background-color: #222;
+   width: 100%;
 }
+
 footer, footer a {
-  color: #fff;
+   color: #fff;
 }

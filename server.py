@@ -29,11 +29,30 @@ def login_user():
         'login.html'
     )
 
-@app.route('/login_handler', methods=['POST'])
-def login():
+@app.route('/vol_login_handler', methods=['POST'])
+def vol_login():
     email = request.form.get('email')
     password = request.form.get('password')
     query = db.query('select * from volunteer where email = $1', email)
+    results_list = query.namedresult()
+    if len(results_list[0]) > 0:
+        if results_list[0].password == password:
+            session['email'] = email
+    else:
+        pass
+    return redirect('/')
+
+@app.route('/org_login')
+def org_login():
+    return render_template(
+        'org_login.html'
+    )
+
+@app.route('/org_login_handler', methods=['POST'])
+def org_login_handler():
+    email = request.form.get('email')
+    password = request.form.get('password')
+    query = db.query('select * from organization where email = $1', email)
     results_list = query.namedresult()
     if len(results_list[0]) > 0:
         if results_list[0].password == password:

@@ -94,6 +94,7 @@ def submit_new_user():
             'email': email
         }
     )
+    session['email'] = email
     return redirect('/')
 
 @app.route('/submit_new_org', methods=['POST'])

@@ -3,6 +3,7 @@ font-family: 'Hind Guntur', sans-serif;*/
 body {
   background-color: #5d90ff;
   font-family: 'Hind Guntur', sans-serif;
+  position: relative;
 }
 /********************************
       ALTER BOOTSTRAP CSS
@@ -91,8 +92,7 @@ table, th, tr, td {
 footer {
   background-color: #222;
   color: ivory;
-  /*position: absolute;*/
-  bottom: 0;
+  position: absolute;
   width: 100%;
   padding: 1em 0;
 }

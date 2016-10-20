@@ -1,0 +1,130 @@
+/*font-family: 'Wendy One', sans-serif;
+font-family: 'Hind Guntur', sans-serif;*/
+
+body {
+    background-color: #5d90ff;
+    font-family: 'Hind Guntur', sans-serif;
+    position: relative;
+}
+
+
+/********************************
+      ALTER BOOTSTRAP CSS
+********************************/
+
+.navbar {
+    border-radius: 0;
+}
+
+.navbar-header .navbar-brand {
+    color: #fff;
+    font-family: 'Wendy One', sans-serif;
+}
+
+.search_projects.bootstrap-iso {
+    background-color: inherit;
+}
+
+.btn-primary {
+    background-color: gold;
+    color: #222;
+    border-color: darkgoldenrod;
+}
+
+.btn-primary:hover {
+    background-color: #ffe86f;
+    color: #222;
+    border-color: darkgoldenrod;
+}
+
+
+/************************
+        HOMEPAGE
+************************/
+
+.quote {
+    color: #fff;
+}
+
+.involve-hr {
+    height: 1px;
+    color: #222;
+    background-color: #222;
+}
+
+.entry_links a {
+    padding: 15px 25px;
+}
+
+.entry_links a:first-child {
+    margin-right: 5px;
+}
+
+.entry_links a:last-child {
+    margin-left: 5px;
+}
+
+
+/************************
+          LOGIN
+************************/
+
+#login_form {
+    max-width: 350px;
+    margin: auto;
+}
+
+
+/************************
+        REGISTRATION
+************************/
+
+.register_user {
+    margin-top: 2em;
+}
+
+.register_user a {
+    margin: .5em;
+    padding: 1em 1.25em;
+    font-size: 1.25em;
+}
+
+
+/************************************
+        ORG_SIGNUP / VOL_SIGNUP
+************************************/
+
+.create_user_heading {
+    margin-bottom: 2em;
+}
+
+#signup_form {
+    max-width: 350px;
+    margin: auto;
+}
+
+
+/************************
+        PROJECTS
+************************/
+
+table, th, tr, td {
+    border: 2px solid black;
+}
+
+
+/************************
+          FOOTER
+************************/
+
+footer {
+    background-color: #222;
+    color: ivory;
+    position: absolute;
+    width: 100%;
+    padding: 1em 0;
+}
+
+footer, footer a {
+    color: #fff;
+}

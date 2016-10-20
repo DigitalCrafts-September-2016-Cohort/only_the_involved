@@ -97,7 +97,7 @@ def submit_new_org():
 
 @app.route('/org_profile')
 def view_org_profile():
-    query = db.query('select * from organization where name = $1', session['name'])
+    query = db.query('select * from organization where email = $1', session['email'])
     org_info = query.namedresult()[0]
 
     return render_template(
@@ -114,19 +114,23 @@ def create_new_event():
 
 @app.route('/submit_new_event', methods=['POST'])
 def submit_new_event():
-    query = db.query('select * from organization where name = $1', name)
-    results_list = query.namedresult()
+    query = db.query('select * from organization where email = $1', session['email']).namedresult()[0]
+    org_id = query.id
+    org_name = query.name
+
     name = request.form.get('name')
     start_date = request.form.get('date')
     description = request.form.get('description')
     db.insert(
         'project', {
             'name': name,
-            'start_date': start_date,
-            'description': description
-
+            'project_description': description,
+            'start_time': "",
+            'organization_id': org_id,
+            'start_date': start_date
         }
     )
+    return redirect('/projects')
 
 @app.route('/projects')
 def view_projects():

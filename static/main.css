@@ -6,6 +6,9 @@ body {
   font-family: 'Hind Guntur', sans-serif;
   position: relative;
 }
+.main-body {
+   min-height: 515px;
+}
 /********************************
       ALTER BOOTSTRAP CSS
 ********************************/

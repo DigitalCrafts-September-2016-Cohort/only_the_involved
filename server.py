@@ -182,12 +182,26 @@ def submit_new_event():
 
     name = request.form.get('name')
     start_date = request.form.get('date')
+    start_time = request.form.get('start_time')
     description = request.form.get('description')
+    hour = request.form.get('hour')
+    minutes = request.form.get('minutes')
+    time_period = request.form.get('time_period')
+    print "TIME: %s:%s:%s" % (hour, minutes, time_period)
+
+    if time_period == "pm":
+        hour = int(hour)
+        hour += 12
+
+    time = "%s:%s" % (hour, minutes)
+    print "SECOND TIME: %s" % time
+
+    print hour
     db.insert(
         'project', {
             'name': name,
             'project_description': description,
-            'start_time': "",
+            'start_time': time,
             'organization_id': org_id,
             'start_date': start_date
         }

@@ -1,11 +1,21 @@
-{% extends "layout.html" %}
-
-{% block body %}
-<div class="row">
-  <div class="col-xs-12 text-center">
-    <h1>Login</h1>
-  </div>
+{% extends "layout.html" %} {% block body %} {% if session['email'] %}
+<div class="container">
+    <div class="jumbotron">
+        <p style="text-align: center">
+            You are already logged in!
+        </p>
+        <p style="text-align: center">
+            If you would like to logout and login as another user, click <a href="/new_login">here</a>.
+        </p>
+    </div>
 </div>
+{% elif not session['email'] %}
+<div class="row">
+    <div class="col-xs-12 text-center">
+        <h1>Login</h1>
+    </div>
+</div>
+<<<<<<< HEAD
 <<<<<<< HEAD
 <form id="login_form" action="/vol_login_handler" method="post">
 =======
@@ -28,3 +38,18 @@
 >>>>>>> eli_branch
 
 {% endblock %}
+=======
+<p style="text-align: center">
+    Not a volunteer? Click <a style="color: white" href="/org_login">here</a> to login as an organization!
+</p>
+<form id="login_form" action="/login_handler" method="post">
+    <div class="form-group">
+        <input class="form-control" type="text" name="email" placeholder="email">
+    </div>
+    <div class="form-group">
+        <input class="form-control" type="password" name="password" placeholder="password">
+    </div>
+    <button class="btn btn-primary form-control" type="submit" name="login">Login</button>
+</form>
+{% endif %} {% endblock %}
+>>>>>>> origin

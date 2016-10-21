@@ -149,10 +149,6 @@ def submit_new_org():
 
 
 
-@app.route('/org_profile')
-def view_org_profile():
-    query = db.query('select * from organization where email = $1', session['email'])
-
 
 @app.route('/org_profile')
 def view_org_profile():

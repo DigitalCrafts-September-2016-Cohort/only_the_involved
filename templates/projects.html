@@ -1,86 +1,66 @@
-{% extends "layout.html" %}
-
-{% block body %}
+{% extends "layout.html" %} {% block body %}
 
 <!-- HTML Form (wrapped in a .bootstrap-iso div) -->
 <div class="search_projects bootstrap-iso">
-  <div class="row">
-   <div class="col-md-6 col-sm-6 col-xs-12">
-    <form action="/search" class="form-horizontal" method="post">
-     <div class="form-group ">
-      <label class="control-label col-sm-2 requiredField" for="date">
+    <div class="row">
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <form action="/search" class="form-horizontal" method="post">
+                <div class="form-group ">
+                    <label class="control-label col-sm-2 requiredField" for="date">
        Date
        <span class="asteriskField">
         *
        </span>
       </label>
-      <div class="col-sm-10">
-       <div class="input-group">
-        <div class="input-group-addon">
-         <i class="fa fa-calendar">
+                    <div class="col-sm-10">
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar">
          </i>
-        </div>
-        <input class="form-control" id="date" name="date" placeholder="MM/DD/YYYY" type="text"/>
-       </div>
-      </div>
-     </div>
-     <div class="form-group">
-      <div class="col-sm-10 col-sm-offset-2">
-       <input name="_honey" style="display:none" type="text"/>
-       <button class="btn btn-primary " name="submit" type="submit">
+                            </div>
+                            <input class="form-control" id="date" name="date" placeholder="MM/DD/YYYY" type="text" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-10 col-sm-offset-2">
+                        <input name="_honey" style="display:none" type="text" />
+                        <button class="btn btn-primary " name="submit" type="submit">
         Submit
        </button>
-      </div>
-     </div>
-    </form>
-   </div>
-  </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 
-<table>
-  <thead>
-    <tr>
-      <th>
-        Organization Name
-      </th>
-      <th>
-        Project Name
-      </th>
-      <th>
-        Project Description
-      </th>
-      <th>
-        Project Start Time
-      </th>
-      <th>
-        Signup
-      </th>
-    </tr>
-  </thead>
 
-  <tbody>
-    {% for entry in entry_list %}
-    <tr>
-
-      <td>
-          {{entry.organization}}
-      </td>
-      <td>
-          {{entry.project}}
-      </td>
-      <td>
-          {{entry.description}}
-      </td>
-      <td>
-        {{entry.time}}
-      </td>
-      <td>
+{% for entry in entry_list %}
+<div class="container">
+    <div class="jumbotron">
+        <div class="pull-right">
+            <img src="/static/Volunteer_Hands.jpg" alt="" width="700px" />
+        </div>
+        <label for="">Organization:</label>
+        <p>
+            {{entry.organization}}
+        </p>
+        <label for="">Project:</label>
+        <p>
+            {{entry.project}}
+        </p>
+        <label for="">Description:</label>
+        <p>
+            {{entry.description}}
+        </p>
+        <label for="">Time:</label>
+        <p>
+            {{entry.time}}
+        </p>
         <a href="/register_project">Register</a>
-      </td>
 
-    </tr>
-      {% endfor %}
-  </tbody>
 
-</table>
-{% endblock %}
+    </div>
+</div>
+{% endfor %} {% endblock %}

@@ -56,6 +56,7 @@ def vol_login():
     if results_list != []:
         if results_list[0].password == password:
             session['email'] = email
+            return redirect('/vol_profile')
     else:
         pass
     return redirect('/login')
@@ -116,7 +117,7 @@ def submit_new_user():
             }
         )
         session['email'] = email
-        return redirect('/')
+        return redirect('/vol_profile')
     else:
         return redirect('/login')
 
@@ -153,6 +154,17 @@ def view_org_profile():
     return render_template(
         'org_profile.html',
         org_info = org_info
+    )
+
+@app.route('/vol_profile')
+def view_vol_profile():
+
+    query2 = db.query('select volunteer.name as vol_name, project.name as project_name, project.project_description, project.start_time, project.start_date from volunteer, participation, project where volunteer.id = participation.volunteer_id and participation.project_id = project.id and volunteer.email = $1', session['email'])
+    project_info = query2.namedresult()
+
+    return render_template(
+        'vol_profile.html',
+        project_info = project_info
     )
 
 @app.route('/create_new_event')

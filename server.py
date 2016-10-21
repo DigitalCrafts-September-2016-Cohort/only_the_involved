@@ -41,6 +41,12 @@ def login_user():
         'login.html'
     )
 
+@app.route('/new_login')
+def new_login():
+    if session['email']:
+        del session['email']
+    return redirect('/login')
+
 @app.route('/vol_login_handler', methods=['POST'])
 def vol_login():
     email = request.form.get('email')

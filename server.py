@@ -77,7 +77,7 @@ def org_login_handler():
             session['email'] = email
     else:
         pass # return redirect('/org_login')
-    return redirect('/org_login')
+    return redirect('/org_profile')
 
 @app.route('/org_signup')
 def render_org_signup():

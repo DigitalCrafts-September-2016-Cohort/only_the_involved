@@ -210,7 +210,7 @@ def submit_new_event():
 
 @app.route('/projects')
 def view_projects():
-    query = db.query('select organization.name as Organization, project.id as project_id, organization.id as org_id, project.name as Project, project.project_description as Description, project.start_date as Time from project, organization where project.organization_id = organization.id')
+    query = db.query('select organization.name as Organization, project.id as project_id, organization.id as org_id, project.name as Project, project.project_description as Description, project.start_date as Date, project.start_time as Time from project, organization where project.organization_id = organization.id order by date desc')
     results_list = query.namedresult()
 
     return render_template(

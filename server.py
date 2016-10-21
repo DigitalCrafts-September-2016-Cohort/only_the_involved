@@ -49,13 +49,13 @@ def login():
     password = request.form.get('password')
     query = db.query('select * from volunteer where email = $1', email)
     results_list = query.namedresult()
-    if len(results_list[0]) > 0:
+    if results_list != []:
         if results_list[0].password == password:
             session['email'] = email
 
     else:
         pass
-    return redirect('/')
+    return redirect('/login')
 
 @app.route('/org_login')
 def org_login():
@@ -69,13 +69,13 @@ def org_login_handler():
     password = request.form.get('password')
     query = db.query('select * from organization where email = $1', email)
     results_list = query.namedresult()
-    if len(results_list[0]) > 0:
+    if results_list != []:
         if results_list[0].password == password:
             session['email'] = email
 
     else:
-        pass
-    return redirect('/')
+        pass # return redirect('/org_login')
+    return redirect('/org_login')
 
 
 @app.route('/org_signup')
@@ -106,16 +106,22 @@ def submit_new_user():
     name = request.form.get('name')
     email = request.form.get('email')
     password = request.form.get('password')
+    query = db.query('select * from volunteer where email =$1', email)
+    vol_info = query.namedresult()
 
-    db.insert(
-        'volunteer', {
-            'name': name,
-            'password': password,
-            'email': email
-        }
-    )
-    session['email'] = email
-    return redirect('/')
+    if vol_info == []:
+        db.insert(
+            'volunteer', {
+                'name': name,
+                'password': password,
+                'email': email
+            }
+        )
+        session['email'] = email
+        return redirect('/')
+    else:
+        return redirect('/login')
+
 
 
 @app.route('/submit_new_org', methods=['POST'])
@@ -124,17 +130,23 @@ def submit_new_org():
     description = request.form.get('description')
     email = request.form.get('email')
     password = request.form.get('password')
+    query = db.query('select * from organization where email =$1', email)
+    org_info = query.namedresult()
 
-    db.insert(
-        'organization', {
-            'name': name,
-            'description': description,
-            'email': email,
-            'password': password
-        }
-    )
-    session['email'] = email
-    return redirect('/')
+    if org_info == []:
+        db.insert(
+            'organization', {
+                'name': name,
+                'description': description,
+                'password': password,
+                'email': email
+            }
+        )
+        session['email'] = email
+        return redirect('/')
+    else:
+        return redirect('/org_login')
+
 
 
 @app.route('/org_profile')

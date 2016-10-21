@@ -43,10 +43,6 @@ def login_user():
         'login.html'
     )
 
-@app.route('/vol_login_handler', methods=['POST'])
-def vol_login():
-
-
 @app.route('/login_handler', methods=['POST'])
 def login():
     email = request.form.get('email')
@@ -158,10 +154,6 @@ def view_org_profile():
 
         org_info = org_info
     )
-        org_info=org_info
-    )
-
-
 
 @app.route('/create_new_event')
 def create_new_event():

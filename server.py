@@ -184,7 +184,7 @@ def submit_new_event():
 
 @app.route('/projects')
 def view_projects():
-    query = db.query('select organization.name as Organization, project.name as Project, project.project_description as Description, project.start_date as Time from project, organization where project.organization_id = organization.id')
+    query = db.query('select organization.name as Organization, project.id as project_id, organization.id as org_id, project.name as Project, project.project_description as Description, project.start_date as Time from project, organization where project.organization_id = organization.id')
     results_list = query.namedresult()
 
     return render_template(
@@ -206,13 +206,26 @@ def search_bar():
     )
 
 
-@app.route('/register_project')
-def register():
-
+@app.route('/register_project/<project_id>')
+def register(project_id):
+    query = db.query('select organization.name as organization, project.name as project, project.project_description as description, organization.id as org_id, project.start_date as time from project, organization where project.organization_id = organization.id and project.id = $1', project_id)
+    org_info = query.namedresult()[0]
     return render_template(
         'register_project.html',
-        title='My Projects'
+        org_info = org_info,
+        project_id = project_id
     )
+@app.route('/register_project/<project_id>/confirm')
+def confirm(project_id):
+    query = db.query('select * from volunteer where email = $1', session['email'])
+    volunteer_id = query.namedresult()[0].id
+    db.insert(
+        'participation', {
+            'project_id': project_id,
+            'volunteer_id': volunteer_id
+        }
+    )
+    return redirect('/projects')
 
 if __name__ == '__main__':
     app.run(debug=True)

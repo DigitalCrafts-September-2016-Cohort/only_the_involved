@@ -184,6 +184,7 @@ def submit_new_event():
     start_date = request.form.get('date')
     start_time = request.form.get('start_time')
     description = request.form.get('description')
+    vol_count = request.form.get('vol_count')
     hour = request.form.get('hour')
     minutes = request.form.get('minutes')
     time_period = request.form.get('time_period')
@@ -203,14 +204,15 @@ def submit_new_event():
             'project_description': description,
             'start_time': time,
             'organization_id': org_id,
-            'start_date': start_date
+            'start_date': start_date,
+            'vol_count': vol_count
         }
     )
     return redirect('/projects')
 
 @app.route('/projects')
 def view_projects():
-    query = db.query('select organization.name as Organization, project.id as project_id, organization.id as org_id, project.name as Project, project.project_description as Description, project.start_date as Date, project.start_time as Time from project, organization where project.organization_id = organization.id order by date desc')
+    query = db.query('select organization.name as Organization, project.id as project_id, organization.id as org_id, project.name as Project, project.project_description as Description, project.start_date as Date, project.start_time as Time, project.vol_count from project, organization where project.organization_id = organization.id order by date desc')
     results_list = query.namedresult()
 
     return render_template(

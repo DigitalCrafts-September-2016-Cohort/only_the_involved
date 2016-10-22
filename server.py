@@ -48,8 +48,10 @@ def login_user():
 def login():
 @app.route('/new_login')
 def new_login():
-    if session['email']:
-        del session['email']
+    if session['vol_email']:
+        del session['vol_email']
+    elif session['org_email']:
+        del session['org_email']
     return redirect('/login')
 
 @app.route('/vol_login_handler', methods=['POST'])
@@ -61,9 +63,7 @@ def vol_login():
     results_list = query.namedresult()
     if results_list != []:
         if results_list[0].password == password:
-            session['email'] = email
-
-
+            session['vol_email'] = email
             return redirect('/vol_profile')
  origin
     else:
@@ -84,8 +84,7 @@ def org_login_handler():
     results_list = query.namedresult()
     if results_list != []:
         if results_list[0].password == password:
-            session['email'] = email
-
+            session['org_email'] = email
     else:
         pass # return redirect('/org_login')
     return redirect('/org_profile')
@@ -107,10 +106,16 @@ def render_vol_signup():
     )
 
 
-@app.route('/logout')
-def logout_handler():
-    if session['email']:
-        del session['email']
+@app.route('/vol_logout')
+def vol_logout_handler():
+    if session['vol_email']:
+        del session['vol_email']
+    return redirect('/')
+
+@app.route('/org_logout')
+def org_logout_handler():
+    if session['org_email']:
+        del session['org_email']
     return redirect('/')
 
 
@@ -130,7 +135,7 @@ def submit_new_user():
                 'email': email
             }
         )
-        session['email'] = email
+        session['vol_email'] = email
         return redirect('/vol_profile')
     else:
         return redirect('/login')
@@ -155,7 +160,7 @@ def submit_new_org():
                 'email': email
             }
         )
-        session['email'] = email
+        session['org_email'] = email
         return redirect('/')
     else:
         return redirect('/org_login')
@@ -168,6 +173,9 @@ def view_org_profile():
     query = db.query(
         'select * from organization where email = $1', session['email'])
 
+
+    query = db.query('select * from organization where email = $1', session['org_email'])
+
     org_info = query.namedresult()[0]
 
     return render_template(
@@ -179,7 +187,7 @@ def view_org_profile():
 @app.route('/vol_profile')
 def view_vol_profile():
 
-    query2 = db.query('select volunteer.name as vol_name, project.name as project_name, project.project_description, project.start_time, project.start_date from volunteer, participation, project where volunteer.id = participation.volunteer_id and participation.project_id = project.id and volunteer.email = $1', session['email'])
+    query2 = db.query('select volunteer.name as vol_name, project.name as project_name, project.project_description, project.start_time, project.start_date from volunteer, participation, project where volunteer.id = participation.volunteer_id and participation.project_id = project.id and volunteer.email = $1', session['vol_email'])
     project_info = query2.namedresult()
 
     return render_template(
@@ -197,6 +205,7 @@ def create_new_event():
 
 @app.route('/submit_new_event', methods=['POST'])
 def submit_new_event():
+
     query = db.query('select * from organization where email = $1', session['email']).namedresult()[0]
 
 
@@ -204,6 +213,9 @@ def submit_new_event():
 def submit_new_event():
     query = db.query('select * from organization where email = $1',
                      session['email']).namedresult()[0]
+
+
+    query = db.query('select * from organization where email = $1', session['org_email']).namedresult()[0]
 
     org_id = query.id
     org_name = query.name
@@ -324,7 +336,7 @@ def register(project_id):
 def confirm(project_id):
 
     # check to see if user has already register to the event
-    query3 = db.query('select participation.project_id as project_id, participation.volunteer_id as volunteer_id from volunteer, participation where volunteer.id = participation.volunteer_id and email = $1', session['email'])
+    query3 = db.query('select participation.project_id as project_id, participation.volunteer_id as volunteer_id from volunteer, participation where volunteer.id = participation.volunteer_id and email = $1', session['vol_email'])
     project_info = query3.namedresult()
 
     is_found = False

@@ -19,7 +19,6 @@ app = Flask('if_you_care', template_folder=tmp_dir)
 
 app.secret_key = 'give_a_little'
 
-
 @app.route('/')
 def home_page():
     count = session.get('count', 0)
@@ -29,7 +28,6 @@ def home_page():
         'homepage.html',
         title='If You Care'
     )
-
 
 @app.route('/registration')
 def register_user():
@@ -43,9 +41,6 @@ def login_user():
         'login.html'
     )
 
-
-@app.route('/login_handler', methods=['POST'])
-def login():
 @app.route('/new_login')
 def new_login():
     if session['vol_email']:
@@ -56,7 +51,6 @@ def new_login():
 
 @app.route('/vol_login_handler', methods=['POST'])
 def vol_login():
- origin
     email = request.form.get('email')
     password = request.form.get('password')
     query = db.query('select * from volunteer where email = $1', email)
@@ -65,7 +59,6 @@ def vol_login():
         if results_list[0].password == password:
             session['vol_email'] = email
             return redirect('/vol_profile')
- origin
     else:
         pass
     return redirect('/login')
@@ -89,7 +82,6 @@ def org_login_handler():
         pass # return redirect('/org_login')
     return redirect('/org_profile')
 
-
 @app.route('/org_signup')
 def render_org_signup():
     return render_template(
@@ -97,14 +89,12 @@ def render_org_signup():
         title='If You Care'
     )
 
-
 @app.route('/vol_signup')
 def render_vol_signup():
     return render_template(
         'vol_signup.html',
         title='If You Care'
     )
-
 
 @app.route('/vol_logout')
 def vol_logout_handler():
@@ -117,7 +107,6 @@ def org_logout_handler():
     if session['org_email']:
         del session['org_email']
     return redirect('/')
-
 
 @app.route('/submit_new_vol', methods=['POST'])
 def submit_new_user():
@@ -139,7 +128,6 @@ def submit_new_user():
         return redirect('/vol_profile')
     else:
         return redirect('/login')
-
 
 
 @app.route('/submit_new_org', methods=['POST'])
@@ -166,21 +154,13 @@ def submit_new_org():
         return redirect('/org_login')
 
 
-
-
 @app.route('/org_profile')
 def view_org_profile():
-    query = db.query(
-        'select * from organization where email = $1', session['email'])
-
-
     query = db.query('select * from organization where email = $1', session['org_email'])
-
     org_info = query.namedresult()[0]
 
     return render_template(
         'org_profile.html',
-
         org_info = org_info
     )
 
@@ -202,21 +182,9 @@ def create_new_event():
         'create_new_event.html'
     )
 
-
 @app.route('/submit_new_event', methods=['POST'])
 def submit_new_event():
-
-    query = db.query('select * from organization where email = $1', session['email']).namedresult()[0]
-
-
-@app.route('/submit_new_event', methods=['POST'])
-def submit_new_event():
-    query = db.query('select * from organization where email = $1',
-                     session['email']).namedresult()[0]
-
-
     query = db.query('select * from organization where email = $1', session['org_email']).namedresult()[0]
-
     org_id = query.id
     org_name = query.name
 
@@ -251,64 +219,17 @@ def submit_new_event():
     )
     return redirect('/projects')
 
-
 @app.route('/projects')
 def view_projects():
     query = db.query('select organization.name as Organization, project.id as project_id, organization.id as org_id, project.name as Project, project.project_description as Description, project.start_date as Date, project.start_time as Time, project.vol_needed, project.vol_total from project, organization where project.organization_id = organization.id order by date desc')
     results_list = query.namedresult()
 
-    start_time_list = []
-    for result in results_list:
-        start_time_list.append(result.time)
-
-    # print "START TIME LIST: %s" % start_time_list
-
-    start_time = str(results_list[0].time)
-    print "Start TIME: %s" % start_time
-    print "TYPE OF START TIME: %r" % type(start_time)
-    hour = ""
-    minutes = ""
-    counter = 0
-
-    for char in start_time:
-        while counter < 5:
-            if counter < 2:
-                hour += char
-            elif counter != 2:
-                minutes += char
-            counter += 1
-            break
-
-    print "HOUR NOW: %s" % hour
-    print "MINUTES NOW %s" % minutes
-
-    time_period = ""
-    hour = int(hour)
-    if hour > 12:
-        hour -= 12
-        time_period = "pm"
-    else:
-        time_period = "am"
-    # hour = str(hour)
-    # minutes = str(minutes)
-    start_time = "%s:%s %s" % (hour, minutes, time_period)
-    # print start_time
-    print "START TIME YAYAY!!! %s" % start_time
-
-    # print "Hour %s" % hour
-    # print "Minutes %s" % minutes
-    #
-    # print "TIME: %s" % hour
-    # print "TYPE OF TIME: %r" % type(hour)
-    # print "MINUTES: %s" %(minutes)
-    # print "TYPE OF MINUTES: %r" % type(minutes)
-
+    
     return render_template(
         'projects.html',
         title='If You Care',
-        entry_list=results_list
+        entry_list= results_list
     )
-
 
 @app.route('/search', methods=['POST'])
 def search_bar():
@@ -319,7 +240,7 @@ def search_bar():
     print "DATE: %r" % date
     return render_template(
         'projects.html',
-        entry_list=results_list
+        entry_list = results_list
     )
 
 

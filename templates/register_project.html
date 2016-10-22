@@ -23,12 +23,21 @@
         <p>
             {{org_info.description}}
         </p>
+        <label for="">When:</label>
+        <p>
+            {{org_info.date}}
+        </p>
         <label for="">time:</label>
         <p>
             {{org_info.time}}
         </p>
-        <a href="/register_project/{{project_id}}/confirm">Confirm registration</a>
-
+        {% if org_info.vol_needed > 0 %}
+          <a href="/register_project/{{project_id}}/confirm">Confirm registration</a>
+        {% else %}
+          <p>
+            sorry, full
+          </p>
+        {% endif %}
     </div>
 </div>
 {% endblock %}

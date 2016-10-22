@@ -283,7 +283,7 @@ def search_bar():
 
 @app.route('/register_project/<project_id>')
 def register(project_id):
-    query = db.query('select organization.name as organization, project.name as project, project.project_description as description, organization.id as org_id, project.start_date as hour from project, organization where project.organization_id = organization.id and project.id = $1', project_id)
+    query = db.query('select organization.name as organization, project.name as project, project.project_description as description, organization.id as org_id, project.start_time as time, project.start_date as date, project.vol_needed from project, organization where project.organization_id = organization.id and project.id = $1', project_id)
     org_info = query.namedresult()[0]
     return render_template(
         'register_project.html',

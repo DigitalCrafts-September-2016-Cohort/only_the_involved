@@ -54,11 +54,19 @@
         <p>
             {{entry.description}}
         </p>
-        <label for="">Time:</label>
+        <label for="">When:</label>
+        <p>
+            {{entry.date}}
+        </p>
+        <label for="">Start time:</label>
         <p>
             {{entry.time}}
         </p>
-        <a href="/register_project">Register</a>
+        <label for="">Volunteers Needed:</label>
+        <p>
+            {{entry.vol_needed}} out of {{entry.vol_total}}
+        </p>
+        <a href="/register_project/{{entry.project_id}}">Register for Project</a>
 
 
     </div>

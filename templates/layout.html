@@ -78,9 +78,14 @@
                     <button type="submit" class="btn btn-default">Submit</button>
                 </form> -->
                 <ul class="nav navbar-nav navbar-right">
-                    {% if session['email'] %}
-                    <li><a href="/logout">Logout {{session['email']}}</a></li>
-                    <li><a href="/org_profile">Profile</a></li>
+                    {% if session['org_email'] or session['vol_email']%}
+                      {% if session['org_email'] %}
+                        <li><a href="/org_logout">Logout {{session['org_email']}}</a></li>
+                        <li><a href="/org_profile">Organization Profile</a></li>
+                      {% else %}
+                        <li><a href="/vol_logout">Logout {{session['vol_email']}}</a></li>
+                        <li><a href="/vol_profile">Volunteer Profile</a></li>
+                      {% endif %}
                     {% else %}
                     <li><a href="/login">Login</a></li>
                     <li><a href="/registration">Register</a></li>

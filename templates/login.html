@@ -1,4 +1,4 @@
-{% extends "layout.html" %} {% block body %} {% if session['email'] %}
+{% extends "layout.html" %} {% block body %} {% if session['vol_email'] or session['org_email'] %}
 <div class="container">
     <div class="jumbotron">
         <p style="text-align: center">
@@ -9,7 +9,7 @@
         </p>
     </div>
 </div>
-{% elif not session['email'] %}
+{% elif not session['vol_email'] or session['org_email'] %}
 <div class="row">
     <div class="col-xs-12 text-center">
         <h1>Login</h1>

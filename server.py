@@ -292,26 +292,41 @@ def register(project_id):
     )
 @app.route('/register_project/<project_id>/confirm')
 def confirm(project_id):
-    query = db.query('select * from volunteer where email = $1', session['email'])
-    volunteer_id = query.namedresult()[0].id
-    db.insert(
-        'participation', {
-            'project_id': project_id,
-            'volunteer_id': volunteer_id
-        }
-    )
-    query2 = db.query('select * from project where project.id = $1', project_id)
-    vol_count = query2.namedresult()[0].vol_needed
-    vol_count = int(vol_count) - 1
 
-    db.update(
-        'project', {
-            'id': project_id,
-            'vol_needed': vol_count
-        }
-    )
+    # check to see if user has already register to the event
+    query3 = db.query('select participation.project_id as project_id, participation.volunteer_id as volunteer_id from volunteer, participation where volunteer.id = participation.volunteer_id and email = $1', session['email'])
+    project_info = query3.namedresult()
 
-    return redirect('/projects')
+    is_found = False
+    for pro_id in project_info:
+        project_id = int(project_id)
+        if pro_id.project_id == project_id:
+            is_found = True
+            # implement Flash later to alert user has already signed up for the event
+            # until then, redirect to homepage until better solution
+            return redirect('/')
+        else:
+            pass
+
+    if is_found == False:
+        volunteer_id = query3.namedresult()[0].volunteer_id
+        db.insert(
+            'participation', {
+                'project_id': project_id,
+                'volunteer_id': volunteer_id
+            }
+        )
+        query2 = db.query('select * from project where project.id = $1', project_id)
+        vol_count = query2.namedresult()[0].vol_needed
+        vol_count = int(vol_count) - 1
+
+        db.update(
+            'project', {
+                'id': project_id,
+                'vol_needed': vol_count
+            }
+        )
+        return redirect('/projects')
 
 if __name__ == '__main__':
     app.run(debug=True)

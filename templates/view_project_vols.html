@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<div class="row">
+  <div class="col-xs-12">
+    <ul>
+      {% for vol in vols_info %}
+      <li>
+        Name: {{vol.vol_name}}<br>
+        Email: {{vol.vol_email}}
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+
+{% endblock %}

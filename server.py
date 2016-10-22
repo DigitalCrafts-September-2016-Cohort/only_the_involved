@@ -156,8 +156,9 @@ def submit_new_org():
 
 @app.route('/org_profile')
 def view_org_profile():
-    query = db.query('select * from organization where email = $1', session['org_email'])
-    org_info = query.namedresult()[0]
+    query = db.query('select organization.name as Organization, project.id as project_id, organization.id as org_id, project.name as Project, project.project_description as Description, project.start_date as Date, project.start_time as Time, project.vol_needed, project.vol_total from project, organization where project.organization_id = organization.id and organization.email = $1 order by date asc', session['org_email'])
+    # query = db.query('select * from organization where email = $1', session['org_email'])
+    org_info = query.namedresult()
 
     return render_template(
         'org_profile.html',
@@ -219,74 +220,85 @@ def submit_new_event():
     )
     return redirect('/projects')
 
+@app.route('/projects', methods=['POST'])
+def search_bar():
+    date = request.form.get('date')
+    query = db.query('select organization.name as Organization, project.name as Project, project.project_description as Description, project.start_date as Time, project.vol_needed, project.vol_total from project, organization where project.organization_id = organization.id and start_date = $1', date)
+    search_results_list = query.namedresult()
+
+    # print "DATE: %r" % date
+    # return redirect('projects', searches = {'search_results_list' : 'search_results_list'})
+    return render_template(
+        'projects.html',
+        entry_list = search_results_list
+    )
+
 @app.route('/projects')
 def view_projects():
+    # if 'searches['search_results_list']' in locals() or 'searches.search_results_list' in globals():
+    #     entry_list = search_results_list
+    # else:
     query = db.query('select organization.name as Organization, project.id as project_id, organization.id as org_id, project.name as Project, project.project_description as Description, project.start_date as Date, project.start_time as Time, project.vol_needed, project.vol_total from project, organization where project.organization_id = organization.id order by date desc')
-    results_list = query.namedresult()
-
-    start_time_list = []
-    for result in results_list:
-        start_time_list.append(result.time)
-
-    # print "START TIME LIST: %s" % start_time_list
-
-    start_time = str(results_list[0].time)
-    print "Start TIME: %s" % start_time
-    print "TYPE OF START TIME: %r" % type(start_time)
-    hour = ""
-    minutes = ""
-    counter = 0
-
-    for char in start_time:
-        while counter < 5:
-            if counter < 2:
-                hour += char
-            elif counter != 2:
-                minutes += char
-            counter += 1
-            break
-
-    print "HOUR NOW: %s" % hour
-    print "MINUTES NOW %s" % minutes
-
-    time_period = ""
-    hour = int(hour)
-    if hour > 12:
-        hour -= 12
-        time_period = "pm"
-    else:
-        time_period = "am"
-    # hour = str(hour)
-    # minutes = str(minutes)
-    start_time = "%s:%s %s" % (hour, minutes, time_period)
-    # print start_time
-    print "START TIME YAYAY!!! %s" % start_time
-
-    # print "Hour %s" % hour
-    # print "Minutes %s" % minutes
-    #
-    # print "TIME: %s" % hour
-    # print "TYPE OF TIME: %r" % type(hour)
-    # print "MINUTES: %s" %(minutes)
-    # print "TYPE OF MINUTES: %r" % type(minutes)
+    entry_list = query.namedresult()
 
     return render_template(
         'projects.html',
         title='If You Care',
-        entry_list= results_list
+        entry_list= entry_list
     )
 
-@app.route('/search', methods=['POST'])
-def search_bar():
-    date = request.form.get('date')
-    query = db.query('select organization.name as Organization, project.name as Project, project.project_description as Description, project.start_date as Time from project, organization where project.organization_id = organization.id and start_date = $1', date)
-    results_list = query.namedresult()
+        # start_time_list = []
+        # for result in results_list:
+        #     start_time_list.append(result.time)
 
-    print "DATE: %r" % date
-    return render_template(
-        'projects.html',
-        entry_list = results_list
-    )
+        # print "START TIME LIST: %s" % start_time_list
+
+        # start_time = str(entry_list[0].time)
+        # print "Start TIME: %s" % start_time
+        # print "TYPE OF START TIME: %r" % type(start_time)
+        # hour = ""
+        # minutes = ""
+        # counter = 0
+
+        # for char in start_time:
+        #     while counter < 5:
+        #         if counter < 2:
+        #             hour += char
+        #         elif counter != 2:
+        #             minutes += char
+        #         counter += 1
+        #         break
+        #
+        # print "HOUR NOW: %s" % hour
+        # print "MINUTES NOW %s" % minutes
+        #
+        # time_period = ""
+        # hour = int(hour)
+        # if hour > 12:
+        #     hour -= 12
+        #     time_period = "pm"
+        # else:
+        #     time_period = "am"
+        # hour = str(hour)
+        # minutes = str(minutes)
+        # start_time = "%s:%s %s" % (hour, minutes, time_period)
+        # print start_time
+        # print "START TIME YAYAY!!! %s" % start_time
+
+        # print "Hour %s" % hour
+        # print "Minutes %s" % minutes
+        #
+        # print "TIME: %s" % hour
+        # print "TYPE OF TIME: %r" % type(hour)
+        # print "MINUTES: %s" %(minutes)
+        # print "TYPE OF MINUTES: %r" % type(minutes)
+
+
+
+    # return render_template(
+    #     'projects.html',
+    #     entry_list = results_list
+    # )
 
 
 @app.route('/register_project/<project_id>')
@@ -301,27 +313,33 @@ def register(project_id):
 @app.route('/register_project/<project_id>/confirm')
 def confirm(project_id):
 
-    # check to see if user has already register to the event
-    query3 = db.query('select participation.project_id as project_id, participation.volunteer_id as volunteer_id from volunteer, participation where volunteer.id = participation.volunteer_id and email = $1', session['vol_email'])
-    project_info = query3.namedresult()
-
+    # make a query to grab info from the volunteer and participation tables in db
+    query = db.query('select participation.project_id as project_id, volunteer.id as vol_id from volunteer, participation where volunteer.id = participation.volunteer_id and email = $1', session['vol_email'])
+    project_info = query.namedresult()
+    # set this value to be used to check if user has already registered for the project
     is_found = False
-    for pro_id in project_info:
-        project_id = int(project_id)
-        if pro_id.project_id == project_id:
-            is_found = True
-            # implement Flash later to alert user has already signed up for the event
-            # until then, redirect to homepage until better solution
-            return redirect('/')
-        else:
-            pass
+    # check if the above query grabbed any info or is empty
+    if project_info != []:
+        # if not empty, check to see if volunteer has already signed up for the project
+        # by seeing if the project id is linked to volunteer_id in the participation table in db
+        for project in project_info:
+            project_id = int(project_id)
+            if project.project_id == project_id:
+                is_found = True
+                # implement Flash later to alert user has already signed up for the event
+                # until then, redirect to homepage until better solution
+                return redirect('/')
+            else:
+                pass
 
     if is_found == False:
-        volunteer_id = query3.namedresult()[0].volunteer_id
+        # make a connection and insert volunteer's participation in the project
+        query5 = db.query('select id from volunteer where email = $1', session['vol_email'])
+        vol_id = query5.namedresult()[0].id
         db.insert(
             'participation', {
                 'project_id': project_id,
-                'volunteer_id': volunteer_id
+                'volunteer_id': vol_id
             }
         )
         query2 = db.query('select * from project where project.id = $1', project_id)
@@ -334,7 +352,17 @@ def confirm(project_id):
                 'vol_needed': vol_count
             }
         )
-        return redirect('/projects')
+        return redirect('/register_project/%s' % project_id)
+
+@app.route('/project_vols/<project_id>')
+def view_project_vols(project_id):
+    query = db.query('select volunteer.name as vol_name, volunteer.email as vol_email from volunteer, participation, project where volunteer.id = participation.volunteer_id and project.id = participation.project_id and project.id = $1', project_id)
+    vols_info = query.namedresult()
+
+    return render_template(
+        'view_project_vols.html',
+        vols_info = vols_info
+    )
 
 if __name__ == '__main__':
     app.run(debug=True)

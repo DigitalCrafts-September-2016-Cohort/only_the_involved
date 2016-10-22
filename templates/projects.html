@@ -62,11 +62,13 @@
         <p>
             {{entry.time}}
         </p>
-        <label for="">Volunteers Needed:</label>
+        <label for="">Volunteers Signed Up:</label>
         <p>
-            {{entry.vol_needed}} out of {{entry.vol_total}}
+            {{entry.vol_total - entry.vol_needed}} out of {{entry.vol_total}}
         </p>
+        {%if session['vol_email'] %}
         <a href="/register_project/{{entry.project_id}}">Register for Project</a>
+        {% endif %}
 
 
     </div>

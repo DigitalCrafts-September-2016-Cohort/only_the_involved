@@ -4,7 +4,7 @@
 <div class="search_projects bootstrap-iso">
     <div class="row">
         <div class="col-md-6 col-sm-6 col-xs-12">
-            <form action="/search" class="form-horizontal" method="post">
+            <form action="/projects" class="form-horizontal" method="post">
                 <div class="form-group ">
                     <label class="control-label col-sm-2 requiredField" for="date">
        Date
@@ -35,42 +35,49 @@
     </div>
 </div>
 
+{% if entry_list != [] %}
+  {% for entry in entry_list %}
+  <div class="container">
+      <div class="jumbotron">
+          <div class="pull-right">
+              <img src="/static/Volunteer_Hands.jpg" alt="" width="700px" />
+          </div>
+          <label for="">Organization:</label>
+          <p>
+              {{entry.organization}}
+          </p>
+          <label for="">Project:</label>
+          <p>
+              {{entry.project}}
+          </p>
+          <label for="">Description:</label>
+          <p>
+              {{entry.description}}
+          </p>
+          <label for="">When:</label>
+          <p>
+              {{entry.date}}
+          </p>
+          <label for="">Start time:</label>
+          <p>
+              {{entry.time}}
+          </p>
+          <label for="">Volunteers Signed Up:</label>
+          <p>
+              {{entry.vol_total - entry.vol_needed}} out of {{entry.vol_total}}
+          </p>
+          {%if session['vol_email'] %}
+          <a href="/register_project/{{entry.project_id}}">Register for Project</a>
+          {% endif %}
 
-{% for entry in entry_list %}
-<div class="container">
-    <div class="jumbotron">
-        <div class="pull-right">
-            <img src="/static/Volunteer_Hands.jpg" alt="" width="700px" />
-        </div>
-        <label for="">Organization:</label>
-        <p>
-            {{entry.organization}}
-        </p>
-        <label for="">Project:</label>
-        <p>
-            {{entry.project}}
-        </p>
-        <label for="">Description:</label>
-        <p>
-            {{entry.description}}
-        </p>
-        <label for="">When:</label>
-        <p>
-            {{entry.date}}
-        </p>
-        <label for="">Start time:</label>
-        <p>
-            {{entry.time}}
-        </p>
-        <label for="">Volunteers Signed Up:</label>
-        <p>
-            {{entry.vol_total - entry.vol_needed}} out of {{entry.vol_total}}
-        </p>
-        {%if session['vol_email'] %}
-        <a href="/register_project/{{entry.project_id}}">Register for Project</a>
-        {% endif %}
 
+      </div>
+  </div>
+  {% endfor %}
+  {% else %}
+  <h2>
+    No projects found.
+  </h2>
+{% endif %}
 
-    </div>
-</div>
-{% endfor %} {% endblock %}
+{% endblock %}

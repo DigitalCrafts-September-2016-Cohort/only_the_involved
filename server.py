@@ -224,7 +224,52 @@ def view_projects():
     query = db.query('select organization.name as Organization, project.id as project_id, organization.id as org_id, project.name as Project, project.project_description as Description, project.start_date as Date, project.start_time as Time, project.vol_needed, project.vol_total from project, organization where project.organization_id = organization.id order by date desc')
     results_list = query.namedresult()
 
-    
+    start_time_list = []
+    for result in results_list:
+        start_time_list.append(result.time)
+
+    # print "START TIME LIST: %s" % start_time_list
+
+    start_time = str(results_list[0].time)
+    print "Start TIME: %s" % start_time
+    print "TYPE OF START TIME: %r" % type(start_time)
+    hour = ""
+    minutes = ""
+    counter = 0
+
+    for char in start_time:
+        while counter < 5:
+            if counter < 2:
+                hour += char
+            elif counter != 2:
+                minutes += char
+            counter += 1
+            break
+
+    print "HOUR NOW: %s" % hour
+    print "MINUTES NOW %s" % minutes
+
+    time_period = ""
+    hour = int(hour)
+    if hour > 12:
+        hour -= 12
+        time_period = "pm"
+    else:
+        time_period = "am"
+    # hour = str(hour)
+    # minutes = str(minutes)
+    start_time = "%s:%s %s" % (hour, minutes, time_period)
+    # print start_time
+    print "START TIME YAYAY!!! %s" % start_time
+
+    # print "Hour %s" % hour
+    # print "Minutes %s" % minutes
+    #
+    # print "TIME: %s" % hour
+    # print "TYPE OF TIME: %r" % type(hour)
+    # print "MINUTES: %s" %(minutes)
+    # print "TYPE OF MINUTES: %r" % type(minutes)
+
     return render_template(
         'projects.html',
         title='If You Care',

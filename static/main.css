@@ -128,15 +128,10 @@ img {
 /************************
         PROJECTS
 ************************/
-.project_search_date {
-  max-width: 500px;
-  margin: 1em auto;
-  padding: 1em 0;
+.search_projects label {
+  font-size: 1.6em;
 }
-.project_search_date label {
-  font-size: 1.7em;
-}
-.project_search_date button, .projects_container {
+.projects_container {
   margin-top: 1.5em;
 }
 table, th, tr, td {

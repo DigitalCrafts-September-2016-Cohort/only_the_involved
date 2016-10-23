@@ -13,7 +13,9 @@ img {
 /********************************
       ALTER BOOTSTRAP CSS
 ********************************/
-
+.org_profile_projects .panel {
+  height: 280px;
+}
 .navbar {
     border-radius: 0;
 }
@@ -38,7 +40,6 @@ img {
     color: #222;
     border-color: darkgoldenrod;
 }
-
 
 /************************
         HOMEPAGE
@@ -137,8 +138,24 @@ table {
     width: 100%;
     border-radius: 10px;
 }
-
-
+/******************************
+        CREATE NEW EVENT
+******************************/
+.form-header {
+  margin-bottom: 3em;
+}
+/********************************
+          VOL / ORG PROFILE
+********************************/
+.create {
+  margin-bottom: 2em;
+}
+/********************************
+          ORG LIST
+********************************/
+.org_list .panel {
+  height: 180px;
+}
 /************************
           FOOTER
 ************************/

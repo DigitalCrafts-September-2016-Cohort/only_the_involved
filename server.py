@@ -370,7 +370,7 @@ def view_project_vols(project_id):
     )
 @app.route('/org_list')
 def orglist():
-    query = db.query('select organization.name from organization')
+    query = db.query('select * from organization')
     org_list = query.namedresult()
     return render_template(
         'org_list.html',

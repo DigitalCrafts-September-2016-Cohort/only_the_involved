@@ -12,12 +12,12 @@
 {% elif not session['vol_email'] or session['org_email'] %}
 <div class="row">
     <div class="col-xs-12 text-center">
-        <h1>Login</h1>
+        <h1>Volunteer Login</h1>
     </div>
 </div>
-<p style="text-align: center">
+<h2 style="text-align: center">
     Not a volunteer? Click <a style="color: white" href="/org_login">here</a> to login as an organization!
-</p>
+</h2>
 <form id="login_form" action="/vol_login_handler" method="post">
     <div class="form-group">
         <input class="form-control" type="text" name="email" placeholder="email" required autofocus>

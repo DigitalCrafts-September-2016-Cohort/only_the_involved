@@ -3,16 +3,16 @@
 {% block body %}
 
 <div class="container">
-  <h1>Volunteers</h1>
-  <div class="row">
-    {% for vol in vols_info %}
+  <h1>Organizations</h1>
+  <div class="row org_list">
+    {% for org in org_list %}
     <div class="col-sm-4">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3>{{vol.vol_name}}</h3>
+          <h3>{{org.name}}</h3>
         </div>
         <div class="panel-body org_project">
-          <p>Email: {{vol.vol_email}}</p>
+          <p>{{org.description}}</p>
         </div>
       </div>
     </div>

@@ -14,7 +14,7 @@
       </div>
     </div>
   </div>
-  <div class="row">
+  <div class="row org_profile_projects">
     {% for org in org_info %}
     <div class="col-sm-4">
       <div class="panel panel-default">
@@ -25,7 +25,7 @@
           <p>Description: {{org.description}}</p>
           <p>When: {{org.date}}</p>
           <p>Start Time: {{org.time}}</p>
-          <p><a href="/project_vols/{{org.project_id}}">Volunteers</a> signed up: {{org.vol_total - org.vol_needed}} out of {{org.vol_total}}</p> 
+          <p><a href="/project_vols/{{org.project_id}}">Volunteers</a> signed up: {{org.vol_total - org.vol_needed}} out of {{org.vol_total}}</p>
         </div>
       </div>
     </div>
@@ -33,13 +33,6 @@
   </div>
 </div>
 
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title">Panel title</h3>
-  </div>
-  <div class="panel-body">
-    Panel content
-  </div>
-</div>
+
 
 {% endblock %}

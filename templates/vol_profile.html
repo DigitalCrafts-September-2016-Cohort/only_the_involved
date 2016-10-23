@@ -1,20 +1,33 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<div class="row">
-  <div class="col-xs-12">
-    <h1>{{project_info.vol_name}}</h1>
-  </div>
-</div>
-<div class="row">
-  <div class="col-xs-12">
-    <div class="list_projects">
-      <ul>
-        {% for project in project_info %}
-        <li>{{project.project_name}}</li>
-        {% endfor %}
-      </ul>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <h1>{{vol_info.name}}</h1>
+      <h3>Age: {{vol_info.age}}</h3>
     </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <h3>My Events:</h3>
+    </div>
+  </div>
+  <div class="row">
+    {% for project in project_info %}
+    <div class="col-sm-4">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h3>{{project.project_name}}</h3>
+        </div>
+        <div class="panel-body org_project">
+          <p><strong>Description</strong>: {{project.project_description}}</p>
+          <p><strong>When</strong>: {{project.start_date}}</p>
+          <p><strong>Start Time</strong>: {{project.start_time}}</p>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
   </div>
 </div>
 

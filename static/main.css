@@ -2,7 +2,7 @@
 font-family: 'Hind Guntur', sans-serif;*/
 
 body {
-    background-color: #5d90ff;
+    background-color: #8a9ec8;
     font-family: 'Hind Guntur', sans-serif;
     height: 100%;
 }
@@ -43,9 +43,16 @@ img {
 /************************
         HOMEPAGE
 ************************/
-
+.homepage_white {
+  background-color: #fff;
+  padding: 2em;
+}
+.get_involved_div {
+  max-width: 350px;
+  margin: auto;
+}
 .quote {
-    color: #fff;
+    color: #006F9F;
 }
 
 .involve-hr {
@@ -55,7 +62,9 @@ img {
 }
 
 .entry_links a {
-    padding: 15px 25px;
+    padding: 20px 45px;
+    font-size: 1.3em;
+    font-weight: bold;
 }
 
 .entry_links a:first-child {
@@ -93,9 +102,11 @@ img {
 .register_user a {
     margin: .5em;
     padding: 1em 1.25em;
-    font-size: 1.25em;
+    font-size: 1.6em;
 }
-
+.register_user a:last-child {
+  padding: 1em 2.15em;
+}
 
 /************************************
         ORG_SIGNUP / VOL_SIGNUP
@@ -110,7 +121,9 @@ img {
     margin: auto;
 }
 
-
+#signup_form label {
+  font-size: 1.25em;
+}
 /************************
         PROJECTS
 ************************/

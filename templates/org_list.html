@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<div class="row">
+  <div class="col-xs-12">
+    <ul>
+      {% for name in org_list %}
+      <li>
+        Organization: {{name.name}}
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+
+{% endblock %}

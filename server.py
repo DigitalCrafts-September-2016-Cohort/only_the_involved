@@ -78,9 +78,9 @@ def org_login_handler():
     if results_list != []:
         if results_list[0].password == password:
             session['org_email'] = email
+            return redirect('/org_profile')
     else:
-        pass # return redirect('/org_login')
-    return redirect('/org_profile')
+        return redirect('/org_login')
 
 @app.route('/org_signup')
 def render_org_signup():
@@ -113,6 +113,7 @@ def submit_new_user():
     name = request.form.get('name')
     email = request.form.get('email')
     password = request.form.get('password')
+    age = request.form.get('age')
     query = db.query('select * from volunteer where email =$1', email)
     vol_info = query.namedresult()
 
@@ -121,7 +122,8 @@ def submit_new_user():
             'volunteer', {
                 'name': name,
                 'password': password,
-                'email': email
+                'email': email,
+                'age': age
             }
         )
         session['vol_email'] = email
@@ -149,7 +151,7 @@ def submit_new_org():
             }
         )
         session['org_email'] = email
-        return redirect('/')
+        return redirect('/org_profile')
     else:
         return redirect('/org_login')
 
@@ -167,13 +169,16 @@ def view_org_profile():
 
 @app.route('/vol_profile')
 def view_vol_profile():
+    query = db.query('select * from volunteer where email = $1', session['vol_email'])
+    vol_info = query.namedresult()[0]
 
-    query2 = db.query('select volunteer.name as vol_name, project.name as project_name, project.project_description, project.start_time, project.start_date from volunteer, participation, project where volunteer.id = participation.volunteer_id and participation.project_id = project.id and volunteer.email = $1', session['vol_email'])
+    query2 = db.query('select volunteer.name as vol_name, volunteer.age, project.name as project_name, project.project_description, project.start_time, project.start_date from volunteer, participation, project where volunteer.id = participation.volunteer_id and participation.project_id = project.id and volunteer.email = $1', session['vol_email'])
     project_info = query2.namedresult()
 
     return render_template(
         'vol_profile.html',
-        project_info = project_info
+        project_info = project_info,
+        vol_info = vol_info
     )
 
 @app.route('/create_new_event')
@@ -362,6 +367,14 @@ def view_project_vols(project_id):
     return render_template(
         'view_project_vols.html',
         vols_info = vols_info
+    )
+@app.route('/org_list')
+def orglist():
+    query = db.query('select organization.name from organization')
+    org_list = query.namedresult()
+    return render_template(
+        'org_list.html',
+        org_list = org_list
     )
 
 if __name__ == '__main__':

@@ -212,6 +212,9 @@ form label {
 /************************
         PROJECTS
 ************************/
+.register_link a {
+  font-size: 1.5em;
+}
 .search_projects label {
   font-size: 1.6em;
 }

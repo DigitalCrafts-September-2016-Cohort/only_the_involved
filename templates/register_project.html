@@ -8,6 +8,9 @@
 </div>
 <div class="container">
     <div class="jumbotron">
+      <div class="register_link text-center">
+        <a href="/register_project/{{project_id}}/confirm">Confirm registration</a>
+      </div>
         <div class="pull-right">
             <img src="/static/Volunteer_Hands.jpg" alt="" width="700px" />
         </div>
@@ -31,13 +34,7 @@
         <p>
             {{org_info.time}}
         </p>
-        {% if org_info.vol_needed > 0 %}
           <a href="/register_project/{{project_id}}/confirm">Confirm registration</a>
-        {% else %}
-          <p>
-            sorry, full
-          </p>
-        {% endif %}
     </div>
 </div>
 {% endblock %}

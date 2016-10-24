@@ -37,38 +37,46 @@
 {% if entry_list != [] %}
   {% for entry in entry_list %}
     <div class="jumbotron projects_container">
-        <div class="project_image_div">
-            <img src="/static/Volunteer_Hands.jpg" alt="" width="700px" />
+      <div class="row">
+        <div class="register_link text-center">
+          {%if session['vol_email'] and entry.vol_needed > 0 %}
+          <a href="/register_project/{{entry.project_id}}">Register for Event</a>
+          {% else %}
+            <h3>Sorry, Event is Full</h3>
+          {% endif %}
         </div>
-        <label for="">Organization:</label>
-        <p>
-            {{entry.organization}}
-        </p>
-        <label for="">Project:</label>
-        <p>
-            {{entry.project}}
-        </p>
-        <label for="">Description:</label>
-        <p>
-            {{entry.description}}
-        </p>
-        <label for="">When:</label>
-        <p>
-            {{entry.date}}
-        </p>
-        <label for="">Start time:</label>
-        <p>
-            {{entry.time}}
-        </p>
-        <label for="">Volunteers Signed Up:</label>
-        <p>
-            {{entry.vol_total - entry.vol_needed}} out of {{entry.vol_total}}
-        </p>
-        {%if session['vol_email'] %}
-        <a href="/register_project/{{entry.project_id}}">Register for Event</a>
-        {% endif %}
-
-
+        <div class="col-sm-6">
+          <label for="">Organization:</label>
+          <p>
+              {{entry.organization}}
+          </p>
+          <label for="">Project:</label>
+          <p>
+              {{entry.project}}
+          </p>
+          <label for="">Description:</label>
+          <p>
+              {{entry.description}}
+          </p>
+          <label for="">When:</label>
+          <p>
+              {{entry.date}}
+          </p>
+          <label for="">Start time:</label>
+          <p>
+              {{entry.time}}
+          </p>
+          <label for="">Volunteers Signed Up:</label>
+          <p>
+              {{entry.vol_total - entry.vol_needed}} out of {{entry.vol_total}}
+          </p>
+        </div>
+        <div class="col-sm-6">
+          <div class="project_image_div">
+              <img src="/static/Volunteer_Hands.jpg" alt="" width="700px" />
+          </div>
+        </div>
+      </div>
     </div>
   {% endfor %}
   {% else %}

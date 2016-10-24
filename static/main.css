@@ -21,6 +21,9 @@ h1 {
 form label {
   color: #fff;
 }
+.yellow {
+  color: #ffc22b;
+}
 /********************************
       ALTER BOOTSTRAP CSS
 ********************************/

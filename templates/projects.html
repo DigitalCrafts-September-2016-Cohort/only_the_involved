@@ -39,7 +39,7 @@
     <div class="jumbotron projects_container">
       <div class="row">
         <div class="register_link text-center">
-          {%if session['vol_email'] or session['org_email'] and entry.vol_needed > 0 %}
+          {%if (session['vol_email'] or session['org_email']) and entry.vol_needed > 0 %}
           <a href="/register_project/{{entry.project_id}}">Register for Event</a>
           {% else %}
             <h3>Sorry, Event is Full</h3>

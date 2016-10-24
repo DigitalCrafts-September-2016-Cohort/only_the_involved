@@ -15,7 +15,7 @@ img {
 h1 {
   color: #fff;
 }
-.white {
+.white, .search_projects .form-header {
   color: #fff;
 }
 form label {
@@ -45,6 +45,12 @@ form label {
 .navbar-header .navbar-brand {
     color: #fff;
     font-family: 'Wendy One', sans-serif;
+}
+
+.search_projects {
+  max-width: 350px;
+  margin: auto;
+  padding: 0 10px;
 }
 
 .search_projects.bootstrap-iso {

@@ -213,6 +213,9 @@ form label {
 /************************
         PROJECTS
 ************************/
+.register_link {
+  margin-bottom: 2em;
+}
 .register_link a {
   font-size: 1.5em;
 }

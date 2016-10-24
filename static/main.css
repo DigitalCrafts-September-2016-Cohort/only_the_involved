@@ -9,6 +9,11 @@ body {
     height: 100%;
 }
 
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 img {
   width: 100%;
 }
@@ -32,9 +37,6 @@ form label {
 ********************************/
 .form-control {
   padding: 0 0 0 5px;
-}
-.org_profile_projects .panel {
-  height: 280px;
 }
 .navbar {
     border-radius: 0;

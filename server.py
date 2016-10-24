@@ -359,7 +359,7 @@ def confirm(project_id):
                 'vol_needed': vol_count
             }
         )
-        return redirect('/register_project/%s' % project_id)
+        return redirect('/vol_profile')
 
 @app.route('/project_vols/<project_id>')
 def view_project_vols(project_id):

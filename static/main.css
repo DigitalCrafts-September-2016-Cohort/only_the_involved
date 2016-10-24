@@ -30,7 +30,9 @@ form label {
 .navbar {
     border-radius: 0;
 }
-
+.navbar-nav {
+  margin: 0 -15px;
+}
 .navbar-header .navbar-brand {
     color: #fff;
     font-family: 'Wendy One', sans-serif;

@@ -24,6 +24,9 @@ form label {
 /********************************
       ALTER BOOTSTRAP CSS
 ********************************/
+.form-control {
+  padding: 0 0 0 5px;
+}
 .org_profile_projects .panel {
   height: 280px;
 }

@@ -1,10 +1,10 @@
 {% extends "layout.html" %} {% block body %} {% if session['vol_email'] or session['org_email'] %}
 <div class="container">
     <div class="jumbotron">
-        <p style="text-align: center">
+        <p class="text-center">
             You are already logged in!
         </p>
-        <p style="text-align: center">
+        <p class="text-center">
             If you would like to logout and login as another user, click <a href="/new_login">here</a>.
         </p>
     </div>
@@ -15,8 +15,8 @@
         <h1>Volunteer Login</h1>
     </div>
 </div>
-<h3 style="text-align: center">
-    Not a volunteer? Click <a style="color: white" href="/org_login">here</a> to login as an organization!
+<h3 class="white text-center">
+    Not a volunteer? Click <a style="color: yellow" href="/org_login">here</a> to login as an organization!
 </h3>
 <form id="login_form" action="/vol_login_handler" method="post">
     <div class="form-group">

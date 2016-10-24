@@ -55,9 +55,10 @@ img {
 /************************
         HOMEPAGE
 ************************/
-.homepage_white {
-  /*background-color: #fff;*/
-  padding: 2em 0;
+.choose {
+  font-weight: bold;
+  font-style: italic;
+  color: #ffe86f;
 }
 .get_involved_div {
   max-width: 350px;
@@ -66,10 +67,17 @@ img {
 .get_involved_div h1 {
   text-transform: uppercase;
   font-family: 'Wendy One', sans-serif;
-  font-size: 3em;
+  font-size: 2em;
   /*color: blue;*/
   color: #fff;
   letter-spacing: 0.08em;
+}
+.quote h4 {
+  margin-bottom: 0;
+}
+.quote p {
+  max-width: 350px;
+  margin: auto;
 }
 .quote {
     /*color: #006F9F;*/

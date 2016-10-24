@@ -82,14 +82,20 @@ form label {
   font-style: italic;
   color: #ffe86f;
 }
-.get_involved_div {
+.get_involved_div, .keep_wrapped {
   max-width: 350px;
   margin: auto;
+}
+.try_text {
+  font-size: 1.5em;
+}
+.keep_wrapped {
+  line-height: 1.5em;
 }
 .get_involved_div h1 {
   text-transform: uppercase;
   font-family: 'Wendy One', sans-serif;
-  font-size: 2em;
+  font-size: 2.1em;
   /*color: blue;*/
   color: #fff;
   letter-spacing: 0.08em;
@@ -130,12 +136,14 @@ form label {
 .entry_links_one {
     /*margin-right: 5px;*/
     /*padding: 20px 55px;*/
-    padding: 20px 30px;
+    /*padding: 20px 30px;*/
+    padding: 20px 39px;
     margin: 5px 5px 5px 0;
 }
 
 .entry_links_two {
-    padding: 20px;
+    padding: 20px 7.29px;
+    /*padding: 20px;*/
     margin: 5px 0 5px 5px;
     /*padding: 20px 45px;*/
     /*margin-right: 5px;*/

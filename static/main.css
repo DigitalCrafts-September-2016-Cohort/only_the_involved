@@ -12,6 +12,15 @@ body {
 img {
   width: 100%;
 }
+h1 {
+  color: #fff;
+}
+.white {
+  color: #fff;
+}
+form label {
+  color: #fff;
+}
 /********************************
       ALTER BOOTSTRAP CSS
 ********************************/
@@ -29,6 +38,11 @@ img {
 
 .search_projects.bootstrap-iso {
     background-color: inherit;
+}
+
+.bootstrap-iso .btn-primary {
+  background-color: #ffc22b;
+  color: #222;
 }
 
 .entry_links .btn-primary {

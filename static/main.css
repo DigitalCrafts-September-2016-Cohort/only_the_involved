@@ -24,6 +24,9 @@ form label {
 .yellow {
   color: #ffc22b;
 }
+.pad_left {
+  padding-left: 15px;
+}
 /********************************
       ALTER BOOTSTRAP CSS
 ********************************/

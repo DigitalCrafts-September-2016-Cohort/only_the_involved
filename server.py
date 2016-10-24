@@ -159,12 +159,14 @@ def submit_new_org():
 @app.route('/org_profile')
 def view_org_profile():
     query = db.query('select organization.name as Organization, project.id as project_id, organization.id as org_id, project.name as Project, project.project_description as Description, project.start_date as Date, project.start_time as Time, project.vol_needed, project.vol_total from project, organization where project.organization_id = organization.id and organization.email = $1 order by date asc', session['org_email'])
-    # query = db.query('select * from organization where email = $1', session['org_email'])
+    query_name = db.query('select * from organization where email = $1', session['org_email'])
     org_info = query.namedresult()
+    org_name = query_name.namedresult()[0].name
 
     return render_template(
         'org_profile.html',
-        org_info = org_info
+        org_info = org_info,
+        org_name = org_name
     )
 
 @app.route('/vol_profile')

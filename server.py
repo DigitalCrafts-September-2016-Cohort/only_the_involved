@@ -225,7 +225,7 @@ def submit_new_event():
             'vol_total': vol_count
         }
     )
-    return redirect('/projects')
+    return redirect('/org_profile')
 
 @app.route('/projects', methods=['POST'])
 def search_bar():

@@ -8,7 +8,7 @@ import os
 # import time
 
 db = pg.DB(
-    dbname=os.environ.get('PG_DBNAME'),
+    dbname=os.environ.get('PG_DBNAME_VOLUNTEER_DB'),
     host=os.environ.get('PG_HOST'),
     user=os.environ.get('PG_USERNAME'),
     passwd=os.environ.get('PG_PASSWORD')
